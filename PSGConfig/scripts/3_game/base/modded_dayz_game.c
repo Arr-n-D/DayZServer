@@ -1,40 +1,40 @@
 modded class DayZGame
 {
-	protected ref DUBJSONConfig m_DUBJSONConfig;
+	protected ref PSGJsonConfig m_PSGJsonConfig;
 
-	void SetDUBJSON(DUBJSONConfig config)
+	void SetPSGJson(PSGJsonConfig config)
 	{
-		m_DUBJSONConfig = config;
-		Print("Dressupbox Settings Received From Server");
+		m_PSGJsonConfig = config;
+		Print("PSG JSON Config loaded from server");
 	}
 
-	void SaveDUBJSON()
+	void SavePSGJson()
 	{
-		JsonFileLoader<ref DUBJSONConfig>.JsonSaveFile("$profile:\\Dressupbox\\DUBJSON.json", m_DUBJSONConfig);
+		JsonFileLoader<ref PSGJsonConfig>.JsonSaveFile("$profile:\\PSGConfig\\PSGJson.json", m_PSGJsonConfig);
 		Print("Dressupbox Settings Saved");
 	}
 
-	DUBJSONConfig GetDUBJSONConfig()
+	PSGJsonConfig GetPSGJsonConfig()
 	{
 		if (!m_DUBJSONConfig)
 		{
-			if (!FileExist("$profile:\\Dressupbox"))
+			if (!FileExist("$profile:\\PSGConfig"))
 			{
-				MakeDirectory("$profile:\\Dressupbox");
+				MakeDirectory("$profile:\\PSGConfig");
 			}
-			if (!FileExist("$profile:\\Dressupbox\\DUBJSON.json")) 
+			if (!FileExist("$profile:\\PSGConfig\\PSGJson.json")) 
 			{
-				m_DUBJSONConfig = new DUBJSONConfig();
+				m_PSGJsonConfig = new DUBJSONConfig();
 
-				m_DUBJSONConfig.m_DUBJSONInfo = new ref array<ref DUBJSONInfo>;
+				m_PSGJsonConfig.m_PSGJsonInfo = new ref array<ref PSGJsonInfo>;
 
-				m_DUBJSONConfig.m_DUBJSONInfo.Insert(new DUBJSONInfo("test",0,0,0,0));
+				m_PSGJsonConfig.m_PSGJsonInfo.Insert(new PSGJsonInfo("test",0,0,0,0));
 
-				JsonFileLoader<ref DUBJSONConfig>.JsonSaveFile("$profile:\\Dressupbox\\DUBJSON.json", m_DUBJSONConfig);
+				JsonFileLoader<ref PSGJsonConfig>.JsonSaveFile("$profile:\\PSGConfig\\PSGJson.json", m_PSGJsonConfig);
 			} 
 			else
 			{
-				JsonFileLoader<ref DUBJSONConfig>.JsonLoadFile("$profile:\\Dressupbox\\DUBJSON.json", m_DUBJSONConfig);			
+				JsonFileLoader<ref PSGJsonConfig>.JsonLoadFile("$profile:\\PSGConfig\\PSGJson.json", m_PSGJsonConfig);			
 			}		
 		}
 		return m_DUBJSONConfig;
@@ -55,8 +55,8 @@ modded class DayZGame
 			{
 				PlayerIdentity p_identity = player.GetIdentity();
 				string SteamID = p_identity.GetPlainId();
-				DUBJSONConfig config = GetDayZGame().GetDUBJSONConfig();
-				config.UpdateJSON(SteamID,0,0,0,0);
+				PSGJsonConfig config = GetDayZGame().GetPSGJsonConfig();
+				config.UpdateJSON(SteamID,0,0);
 			}
 		}
 		return super.CreateRandomPlayer();

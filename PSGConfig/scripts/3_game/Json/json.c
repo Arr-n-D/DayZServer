@@ -62,7 +62,7 @@ class PSGJsonConfig
         if (playerIndex == -1)
         {
             m_PSGJsonInfo.Insert(new DUBJSONInfo(playerId,affectedLevel));
-            GetDayZGame().SaveDUBJSON();
+            GetDayZGame().SavePSGJson();
             Print("New JSON");
         }
     }

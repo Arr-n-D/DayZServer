@@ -16,13 +16,18 @@ class CfgMods
 		author = "R&D";
 		name = "PSGConfig";
 		dir = "PSGConfig";
-		dependencies[] = {"Game"};
+		dependencies[] = {"Game", "Mission"};
 		class defs
 		{
 			class gameScriptModule
 			{
 				value = "";
 				files[] = {"PSGConfig\scripts\3_game"};
+			};
+            class missionScriptModule
+			{
+				value = "";
+				files[] = {"PSGConfig\scripts\5_mission"};
 			};
 
 		};
