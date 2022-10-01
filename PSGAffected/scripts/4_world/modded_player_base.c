@@ -223,7 +223,6 @@ modded class PlayerBase
 	override void OnDisconnect()
 	{
 		PlayerJSONUpdate();
-		SetPlayerMadness(false);
 		super.OnDisconnect();
 	}
 	override void EEHitBy(TotalDamageResult damageResult, int damageType, EntityAI source, int component, string dmgZone, string ammo, vector modelPos, float speedCoef)
