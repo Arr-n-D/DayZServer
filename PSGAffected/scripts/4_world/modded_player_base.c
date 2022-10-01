@@ -200,7 +200,7 @@ modded class PlayerBase
 			}
 		}
 
-		if(GetAffectedLevel() == 2)
+		if(GetAffectedLevel() >= 3)
 		{
 			if(ai.IsZombie())
 			{
