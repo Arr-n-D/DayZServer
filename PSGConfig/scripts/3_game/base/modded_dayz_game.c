@@ -16,7 +16,7 @@ modded class DayZGame
 
 	PSGJsonConfig GetPSGJsonConfig()
 	{
-		if (!m_DUBJSONConfig)
+		if (!m_PSGJsonConfig)
 		{
 			if (!FileExist("$profile:\\PSGConfig"))
 			{
@@ -24,7 +24,7 @@ modded class DayZGame
 			}
 			if (!FileExist("$profile:\\PSGConfig\\PSGJson.json")) 
 			{
-				m_PSGJsonConfig = new DUBJSONConfig();
+				m_PSGJsonConfig = new PSGJsonConfig();
 
 				m_PSGJsonConfig.m_PSGJsonInfo = new ref array<ref PSGJsonInfo>;
 
@@ -37,12 +37,12 @@ modded class DayZGame
 				JsonFileLoader<ref PSGJsonConfig>.JsonLoadFile("$profile:\\PSGConfig\\PSGJson.json", m_PSGJsonConfig);			
 			}		
 		}
-		return m_DUBJSONConfig;
+		return m_PSGJsonConfig;
 	}
 
 	void ~DayZGame()
 	{
-		delete m_DUBJSONConfig;
+		delete m_PSGJsonConfig;
 	}
 
 	override string CreateRandomPlayer()

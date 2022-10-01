@@ -39,8 +39,8 @@ class PSGJsonConfig
         int playerIndex = IsPlayerInJSON(playerId);
         if (playerIndex > -1)
         {
-            m_PSGJsonInfo.Get(playerIndex).SetJSONAffectedLevel(mutantlvl);
-            GetDayZGame().SaveDUBJSON();
+            m_PSGJsonInfo.Get(playerIndex).SetJSONAffectedLevel(affectedLevel);
+            GetDayZGame().SavePSGJson();
             Print("Saving JSON");
         }    
     }
@@ -61,7 +61,7 @@ class PSGJsonConfig
         int playerIndex = IsPlayerInJSON(playerId);
         if (playerIndex == -1)
         {
-            m_PSGJsonInfo.Insert(new DUBJSONInfo(playerId,affectedLevel));
+            m_PSGJsonInfo.Insert(new PSGJsonInfo(playerId,affectedLevel));
             GetDayZGame().SavePSGJson();
             Print("New JSON");
         }
