@@ -161,7 +161,7 @@ modded class PlayerBase
 
 		if(!GetGame().IsDedicatedServer())
 		{
-			if(GetAffectedLevel() == 3)
+			if(GetAffectedLevel() >= 3)
 			{
 				ItemBase eyewear = GetItemOnSlot("Eyewear");
 				if (eyewear)
