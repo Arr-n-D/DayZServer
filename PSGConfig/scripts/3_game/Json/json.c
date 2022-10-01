@@ -1,18 +1,12 @@
-class PSGJSon
+class PSGJsonInfo
 {  
     protected string m_SteamID;
-    protected int m_MutantLvl;
-    protected int m_FirstMutation;
-    protected int m_SecondMutation;
-    protected int m_Amputee;
+    protected int m_AffectedLevel;
 
-    void PSGJSon(string id, int affectedLevel)  
+    void PSGJsonInfo(string id, int affectedLevel)  
     {
         m_SteamID = id;
-        m_MutantLvl = mutlvl;
-        m_FirstMutation = fstmut;
-        m_SecondMutation = secmut;
-        m_Amputee = amp;
+        m_AffectedLevel = affectedLevel;
     }
 
     string GetJSONSteamID()
@@ -25,118 +19,49 @@ class PSGJSon
         m_SteamID = steamid;
     }
 
-    int GetJSONMutantLevel()
+    int GetJSONAffectedLevel()
     {
-        return m_MutantLvl;
+        return m_AffectedLevel;
     }
 
-    void SetJSONMutantLevel(int mutantlevel)
+    void SetJSONAffectedLevel(int affectedLevel)
     {
-        m_MutantLvl = mutantlevel;
+        m_AffectedLevel = affectedLevel;
     }
-
-    int GetJSONFirstMutation()
-    {
-        return m_FirstMutation;
-    }
-
-    void SetJSONFirstMutation(int firstmutation)
-    {
-        m_FirstMutation = firstmutation;
-    }
-
-    int GetJSONSecondMutation()
-    {
-        return m_SecondMutation;
-    }
-
-    void SetJSONSecondMutation(int secondmutation)
-    {
-        m_SecondMutation = secondmutation;
-    }
-
-    int GetJSONAmputation()
-    {
-        return m_Amputee;
-    }
-
-    void SetJSONAmputation(int amputation)
-    {
-        m_Amputee = amputation;
-    }
-
-
 };
 
-class DUBJSONConfig
+class PSGJsonConfig
 {
-    ref array<ref DUBJSONInfo> m_DUBJSONInfo;
+    ref array<ref PSGJsonInfo> m_PSGJsonInfo;
 
-    void UpdateJSON(string pid, int mutantlvl, int firsttmut, int secondmut, int amputation)
+    void UpdateJSON(string playerId, int affectedLevel)
     {
-        int playerIndex = IsPlayerInJSON(pid);
+        int playerIndex = IsPlayerInJSON(playerId);
         if (playerIndex > -1)
         {
-            m_DUBJSONInfo.Get(playerIndex).SetJSONMutantLevel(mutantlvl);
-            m_DUBJSONInfo.Get(playerIndex).SetJSONFirstMutation(firsttmut);
-            m_DUBJSONInfo.Get(playerIndex).SetJSONSecondMutation(secondmut);
-            m_DUBJSONInfo.Get(playerIndex).SetJSONAmputation(amputation);
-
+            m_PSGJsonInfo.Get(playerIndex).SetJSONMutantLevel(mutantlvl);
             GetDayZGame().SaveDUBJSON();
-            Print("UpdatingDressupboxJson");
+            Print("Saving JSON");
         }    
     }
 
-    int GetJSONMutant(string pid)
+    int GetJSONAffectedLevel(string playerId)
     {
-        int mutantlvl;
-        int playerIndex = IsPlayerInJSON(pid);
+        int affectedLevel;
+        int playerIndex = IsPlayerInJSON(playerId);
         if (playerIndex > -1)
         {
-            mutantlvl = m_DUBJSONInfo.Get(playerIndex).GetJSONMutantLevel();
+            affectedLevel = m_PSGJsonInfo.Get(playerIndex).GetJSONMutantLevel();
         }
-        return mutantlvl;   
+        return affectedLevel;   
     }
 
-    int GetJSONFirstMutation(string pid)
+    void NewJSON(string playerId, int affectedLevel)
     {
-        int firsttmut;
-        int playerIndex = IsPlayerInJSON(pid);
-        if (playerIndex > -1)
-        {
-            firsttmut = m_DUBJSONInfo.Get(playerIndex).GetJSONFirstMutation();
-        }
-        return firsttmut;  
-    }
-
-    int GetJSONSecondMutation(string pid)
-    {
-        int secondmut;
-        int playerIndex = IsPlayerInJSON(pid);
-        if (playerIndex > -1)
-        {
-            secondmut = m_DUBJSONInfo.Get(playerIndex).GetJSONSecondMutation();
-        }
-        return secondmut;  
-    }
-
-    int GetJSONAmputation(string pid)
-    {
-        int amputation;
-        int playerIndex = IsPlayerInJSON(pid);
-        if (playerIndex > -1)
-        {
-            amputation = m_DUBJSONInfo.Get(playerIndex).GetJSONAmputation();
-        }
-        return amputation;  
-    }
-
-    void NewJSON(string pid, int mutantlvl, int firsttmut, int secondmut, int amputation)
-    {
-        int playerIndex = IsPlayerInJSON(pid);
+        int playerIndex = IsPlayerInJSON(playerId);
         if (playerIndex == -1)
         {
-            m_DUBJSONInfo.Insert(new DUBJSONInfo(pid,mutantlvl,firsttmut,secondmut,amputation));
+            m_PSGJsonInfo.Insert(new DUBJSONInfo(pid,mutantlvl,firsttmut,secondmut,amputation));
             GetDayZGame().SaveDUBJSON();
             Print("NewDressupboxJson");
         }
@@ -144,9 +69,9 @@ class DUBJSONConfig
 
     int IsPlayerInJSON(string steamId)
     {  
-        for (int i = 0; i < m_DUBJSONInfo.Count(); i++ )
+        for (int i = 0; i < m_PSGJsonInfo.Count(); i++ )
         {
-            if (m_DUBJSONInfo.Get(i).GetJSONSteamID() == steamId)
+            if (m_PSGJsonInfo.Get(i).GetJSONSteamID() == steamId)
             {
                 return i;
             }
