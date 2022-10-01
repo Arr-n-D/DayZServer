@@ -37,7 +37,7 @@ modded class PlayerBase
 
 		PlayerJSONSave();
 		JSONSynchDirty();
-		AgentUpdater();
+		// AgentUpdater();
 	}
 	override void OnConnect()//serverside only
 	{
