@@ -49,18 +49,5 @@ modded class ZombieBase
 		}
 
 		super.HandleMove(pCurrentCommandID);	
-	}	
-	override void EOnContact(IEntity other, Contact extra)
-    {
-
-        DUB_Throwingknife knife;
-        if (Class.CastTo(knife, other))
-        {
-            if (GetGame().IsDedicatedServer())
-            {
-                //AddHealth("", "Shock", snowball.GetShockValue());
-                ProcessDirectDamage(DT_CLOSE_COMBAT, knife, "", knife.GetAmmoType(), "0 0 0", 1);
-            }
-        }
-    }
+	}
 };
