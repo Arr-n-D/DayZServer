@@ -53,8 +53,8 @@ modded class PlayerBase
 	{
 		if(GetGame().IsDedicatedServer())
 		{	
-			DUBJSONConfig config = GetDayZGame().GetDUBJSONConfig();
-			config.UpdateJSON(GetSteamID(),GetMutantLevel(),GetFirstMutation(),GetSecondMutation(),GetAmputation());
+			PSGJsonConfig config = GetDayZGame().GetPSGJsonConfig();
+			config.UpdateJSON(GetSteamID(),GetMutantLevel());
 		}
 	}
 	void PlayerJSONSave()
@@ -671,254 +671,65 @@ modded class PlayerBase
 	};
 
 //Mutation
-	int GetMutantLevel()
+	int GetAffectedLevel()
 	{
-		return MutantLevel;
+		return affectedLevel;
 	};
-	void SetMutantLevel(int level)
+	void SetAffectedLevel(int level)
 	{
-		MutantLevel = level;
+		affectedLevel = level;
 		SetSynchDirty();
 	};
-	void SetFirstMutation(int first)
-	{
-		FirstMutation = first;
-		SetSynchDirty();
-	};
-	void SetSecondMutation(int second)
-	{
-		SecondMutation = second;
-		SetSynchDirty();
-	};
-	int GetFirstMutation()
-	{
-		return FirstMutation;
-	};
-	int GetSecondMutation()
-	{
-		return SecondMutation;
-	};
-	string GetMutations()
-    {
-        string first = FirstMutation.ToString();
-       	string second = SecondMutation.ToString();
+	
+	// void AgentUpdater()
+	// {
+	// 	if(GetGame().IsDedicatedServer())
+	// 	{
+	// 		int mutelevel = GetMutantLevel();
+	// 		if(mutelevel == 1)
+	// 		{
+	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 2400)
+	// 			{
+	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 2400);
+	// 			}
+	// 		}
 
-		return first + second;
-    };
-	void MutationSlots()
-	{
-		if(GetGame().IsDedicatedServer())
-		{
-			ItemBase Mutation1 = GetItemOnSlot("Mutation1");
-			ItemBase Mutation2 = GetItemOnSlot("Mutation2");
-			int Mutation1_id = InventorySlots.GetSlotIdFromString("Mutation1");
-			int Mutation2_id = InventorySlots.GetSlotIdFromString("Mutation2");
-			if(GetMutantLevel() < 4)
-			{
-				if(!Mutation1)
-				{
-					GetInventory().CreateInInventory("DUB_Mutation1_Empty");
-				}
+	// 		if(mutelevel == 2)
+	// 		{
+	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 10053)
+	// 			{
+	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 10053);
+	// 			}
+	// 		}
 
-				if(!Mutation2)
-				{
-					GetInventory().CreateInInventory("DUB_Mutation2_Empty");
-				}
-			}
-			if(GetMutantLevel() >= 4)
-			{
-				
-				if(GetFirstMutation() == 0 && Mutation1)
-				{
-					Mutation1.DeleteSafe();
-				}
+	// 		if(mutelevel == 3)
+	// 		{
+	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 28800)
+	// 			{
+	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 28800);
+	// 			}
+	// 		}
 
-				if(!Mutation1)
-				{
-					if(GetFirstMutation() == 1)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation1",Mutation1_id);
-					}
-					if(GetFirstMutation() == 2)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation2",Mutation1_id);
-					}
-					if(GetFirstMutation() == 3)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation3",Mutation1_id);
-					}
-					if(GetFirstMutation() == 4)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation4",Mutation1_id);
-					}
-					if(GetFirstMutation() == 5)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation5",Mutation1_id);
-					}
-					if(GetFirstMutation() == 6)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation6",Mutation1_id);
-					}
-					if(GetFirstMutation() == 7)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation7",Mutation1_id);
-					}
-					if(GetFirstMutation() == 8)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation8",Mutation1_id);
-					}
-					if(!Mutation2 && GetMutantLevel() == 4)
-					{
-						GetInventory().CreateInInventory("DUB_Mutation2_Empty");
-					}
-				}
-			}
-			if(GetMutantLevel() == 5)
-			{
-				
-				if(GetSecondMutation() == 0 && Mutation2)
-				{
-					Mutation2.DeleteSafe();
-				}
+	// 		if(mutelevel == 4)
+	// 		{
+	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 86893)
+	// 			{
+	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 86893);
+	// 			}
+	// 		}
 
-				if(!Mutation2)
-				{
-					if(GetSecondMutation() == 1)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation1",Mutation2_id);
-					}
-					if(GetSecondMutation() == 2)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation2",Mutation2_id);
-					}
-					if(GetSecondMutation() == 3)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation3",Mutation2_id);
-					}
-					if(GetSecondMutation() == 4)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation4",Mutation2_id);
-					}
-					if(GetSecondMutation() == 5)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation5",Mutation2_id);
-					}
-					if(GetSecondMutation() == 6)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation6",Mutation2_id);
-					}
-					if(GetSecondMutation() == 7)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation7",Mutation2_id);
-					}
-					if(GetSecondMutation() == 8)
-					{
-						GetInventory().CreateAttachmentEx("DUB_Mutation8",Mutation2_id);
-					}
-				}
-			}
-		
-		}
-	};
-	void UpdateMutantVisual()
-	{
-		if(GetFirstMutation() == 3 || GetSecondMutation() == 3)
-		{
-			EntityAI bodypart;
-			ItemBase item;
-			
-			string path;
-			string MutantTexture = "Dressupbox\\Mutation\\Mutations\\data\\mutant_Heat.RVMAT";
-			int idx;
-			int slot_id;
-			array<string> bodyparts = {"Gloves","Body","Legs","Feet","Head"};
-			
-			for (int i = 0; i < bodyparts.Count(); i++)
-			{
-				slot_id = InventorySlots.GetSlotIdFromString(bodyparts.Get(i));
-				bodypart = GetInventory().FindPlaceholderForSlot( slot_id );
-				item = ItemBase.Cast(GetInventory().FindAttachment( slot_id ));
-				
-				if( bodypart )
-				{
-					path = "cfgVehicles " + bodypart.GetType();
-					idx = bodypart.GetHiddenSelectionIndex("mutation");
-					if( idx > -1 )
-					{
-						bodypart.SetObjectMaterial(idx,MutantTexture);
-					}
-				}
-				if( item )
-				{
-					path = "cfgVehicles " + item.GetType();
-					idx = item.GetHiddenSelectionIndex("personality");
-					if( idx > -1 )
-					{
-						item.SetObjectMaterial(idx,MutantTexture);
-					}
-				}
-			}
-			SetFaceTexture(MutantTexture);
-		}
-
-		if(GetMutantLevel() == 1)
-		{
-			string 	m_DecayedTexture;
-			m_DecayedTexture = ConfigGetString(m_DecayedTexture);
-			m_CorpseState = PlayerConstants.CORPSE_STATE_DECAYED;
-			SetFaceTexture(m_DecayedTexture);
-			DUB_MiscGameplayFunctions.MutantChecker();
-		}
-	};
-	void AgentUpdater()
-	{
-		if(GetGame().IsDedicatedServer())
-		{
-			int mutelevel = GetMutantLevel();
-			if(mutelevel == 1)
-			{
-				if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 2400)
-				{
-					m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 2400);
-				}
-			}
-
-			if(mutelevel == 2)
-			{
-				if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 10053)
-				{
-					m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 10053);
-				}
-			}
-
-			if(mutelevel == 3)
-			{
-				if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 28800)
-				{
-					m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 28800);
-				}
-			}
-
-			if(mutelevel == 4)
-			{
-				if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 86893)
-				{
-					m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 86893);
-				}
-			}
-
-			if(mutelevel == 5)
-			{
-				if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 115692)
-				{
-					m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 115693);
-				}
-			}
-		}
-	}
+	// 		if(mutelevel == 5)
+	// 		{
+	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 115692)
+	// 			{
+	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 115693);
+	// 			}
+	// 		}
+	// 	}
+	// }
 	bool ZombieClose()
 	{
-		return zombieclose;
+		return isZombieClose;
 	}
 
 //Alphas
@@ -1176,11 +987,11 @@ modded class PlayerBase
 			float zombie = vector.Distance(ai.GetPosition(), GetPosition());
 			if(zombie <= 20)
 			{
-				zombieclose = true;
+				isZombieClose = true;
 			}
 			else
 			{
-				zombieclose = false;
+				isZombieClose = false;
 			}
 		}
 
@@ -1212,7 +1023,7 @@ modded class PlayerBase
 			float m_Stamina = GetStaminaHandler().GetStamina();
 			if(ai.IsZombie())
 			{
-				if(zombieclose && m_Stamina >= 10)
+				if(isZombieClose && m_Stamina >= 10)
 				{
 					return false;
 				}
