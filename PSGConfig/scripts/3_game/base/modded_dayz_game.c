@@ -28,7 +28,7 @@ modded class DayZGame
 
 				m_PSGJsonConfig.m_PSGJsonInfo = new ref array<ref PSGJsonInfo>;
 
-				m_PSGJsonConfig.m_PSGJsonInfo.Insert(new PSGJsonInfo("test",0,0));
+				m_PSGJsonConfig.m_PSGJsonInfo.Insert(new PSGJsonInfo("test",0));
 
 				JsonFileLoader<ref PSGJsonConfig>.JsonSaveFile("$profile:\\PSGConfig\\PSGJson.json", m_PSGJsonConfig);
 			} 
