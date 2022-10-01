@@ -204,7 +204,7 @@ modded class PlayerBase
 		{
 			if(ai.IsZombie())
 			{
-				if(isZombieClose && m_Stamina)
+				if(isZombieClose)
 				{
 					return false;
 				}
