@@ -1,4 +1,4 @@
-const float SOUNDS_HEARING_DISTANCE = 1000;
+const float hearing_distance_sound = 1000;
 modded class PlayerSoundManagerClient {
 
 
@@ -6,7 +6,7 @@ modded class PlayerSoundManagerClient {
         
        if( GetGame().GetPlayer() )
 		{
-			bool is_at_hearing_distance = vector.Distance(GetGame().GetPlayer().GetPosition(), m_Player.GetPosition()) < SOUNDS_HEARING_DISTANCE;
+			bool is_at_hearing_distance = vector.Distance(GetGame().GetPlayer().GetPosition(), m_Player.GetPosition()) < hearing_distance_sound;
 			
 			if( m_UpdateTimerRunning && !is_at_hearing_distance )
 			{
