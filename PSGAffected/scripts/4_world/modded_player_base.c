@@ -248,4 +248,39 @@ modded class PlayerBase
 			SEffectManager.DestroyEffect( m_SoundFliesEffect );
 		}
 	};
+
+    void SetBioZoneStatus(bool isInZone)
+  {
+    m_IsInBioZone = isInZone;
+  }
+
+  bool IsInBioZone()
+  {
+    return m_IsInBioZone;
+  }
+
+  bool IgnoreContaminatedArea()
+  {
+    return IsPlayerMutant)
+  }
+
+  bool IsPlayerMutant()
+  {
+    int slot_id = InventorySlots.GetSlotIdFromString("Head");
+    Head_Default tempHead = Head_Default.Cast(GetInventory().FindPlaceholderForSlot( slot_id ));
+    if (tempHead && (tempHead.GetType() == "DUB_Muthead_M" || tempHead.GetType() == "DUB_Muthead_F" || tempHead.GetType() == "DUB_Muthead_M_2" || tempHead.GetType() == "DUB_Muthead_F_2"))
+    {
+      return true;
+    }
+    return false;
+  }
+
+  bool IsPlayerPreMutant()
+  {
+    if (IsAlive() && m_FliesEff)
+    {
+      return true;
+    }
+    return false;
+  }
 };

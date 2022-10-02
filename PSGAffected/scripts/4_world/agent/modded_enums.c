@@ -1,0 +1,15 @@
+enum MutantAgent
+{
+  MUTANT_AGENT = 2048
+};
+enum PSGModifiers
+{
+  MDF_MUTANT = 440,
+  MDF_DROWNING = 443
+};
+enum DUB_SymptomIDs 
+{
+  SYMPTOM_CRUDESERUM = 450,
+  SYMPTOM_MUTANTFIRST = 452,
+  SYMPTOM_MUTANTSECOND = 453
+};
