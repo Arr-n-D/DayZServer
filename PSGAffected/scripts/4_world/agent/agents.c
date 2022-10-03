@@ -122,35 +122,28 @@ class AffectedModifier: ModifierBase
     {
       if(player.GetAffectedLevel() != 1)
       {
-        player.SetMutantLevel(1);
+        player.SetAffectedLevel(1);
       }
     }
     if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 9600 && player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 28799 )
     {
       if(player.GetAffectedLevel() != 2)
       {
-        player.SetMutantLevel(2);
+        player.SetAffectedLevel(2);
       }
     }
     if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 28800 && player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 86399 )
     {
       if(player.GetAffectedLevel() != 3)
       {
-        player.SetMutantLevel(3);
+        player.SetAffectedLevel(3);
       }
     }
     if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 86400 && player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 115692)
     {
       if(player.GetAffectedLevel() != 4)
       {
-        player.SetMutantLevel(4);
-      }
-    }
-    if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 115693)
-    {
-      if(player.GetAffectedLevel() != 5)
-      {
-        player.SetMutantLevel(5);
+        player.SetAffectedLevel(4);
       }
     }
   };
@@ -232,7 +225,7 @@ modded class ModifiersManager
         AddModifier(new AffectedModifier);
         Print("Registered AffectedModifier");
         AddModifier(new BioHazardHealModifier);
-        Print("Register BioHazardHealMdfr");
+        Print("Registered BioHazardHealMdfr");
     }
 };
 //agent=====================================================================================================================================================================================================================
@@ -251,7 +244,7 @@ class AffectedAgentBase: AgentBase
 	}
 };
 //symptoms=====================================================================================================================================================================================================================
-class MutantCrudeSerum: SymptomBase //changes skin colour biozone entry
+class AffectedCrudeSerum: SymptomBase //changes skin colour biozone entry
 {
     override void OnInit() 
     {
@@ -290,7 +283,7 @@ class MutantCrudeSerum: SymptomBase //changes skin colour biozone entry
       
     }
 };
-class MutantFirst: SymptomBase //
+class AffectedFirst: SymptomBase //
 {
 	
     //this is just for the Symptom parameters set-up and is called even if the Symptom doesn't execute, don't put any gameplay code in here
@@ -342,7 +335,7 @@ class MutantFirst: SymptomBase //
                   	
     }
 };
-class MutantSecond: SymptomBase
+class AffectedSecond: SymptomBase
 {
     override void OnInit() 
     {
@@ -399,9 +392,9 @@ modded class SymptomManager
   void Init()
   {
     super.Init();
-    RegisterSymptom(new MutantCrudeSerum);
-    RegisterSymptom(new MutantFirst);
-    RegisterSymptom(new MutantSecond);
+    RegisterSymptom(new AffectedCrudeSerum);
+    RegisterSymptom(new AffectedFirst);
+    RegisterSymptom(new AffectedSecond);
   }
 };
 

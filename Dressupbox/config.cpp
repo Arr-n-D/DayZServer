@@ -34,6 +34,7 @@ class CfgVehicles {
 	class FemaleHands_Base;
 	class FemaleLegs_Base;
 	class FemaleFeet_Base;
+	class AntiChemInjector;
 
 	class DUB_SurMutant_M: SurvivorMale_Base
 	{
@@ -313,5 +314,143 @@ class CfgVehicles {
 		hiddenSelections[] = {"personality","mutation"};
 		hiddenSelectionsTextures[] = {"Dressupbox\mutation\data\mutant_f_2_co.paa","Dressupbox\mutation\data\mutant_2_co"};
 		hiddenSelectionsMaterials[] = {"Dressupbox\mutation\data\mutantpersonality.rvmat","Dressupbox\mutation\data\mutantpersonality.rvmat"};
+	};
+
+	class AffectedSyringe_Pure: AntiChemInjector
+	{
+		scope = 2;
+		displayName = "Pure Affected strain";
+		descriptionShort = "Contains a pure strain of the Affected virus. Use with caution.";
+		debug_ItemCategory = 7;
+		model = "Dressupbox\object\injector\injector.p3d";
+		rotationFlags = 17;
+		itemSize[] = {1,2};
+		weight = 60;
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 50;
+				};
+			};
+		};
+	};
+
+	class AffectedAdminLevel1: AntiChemInjector
+	{
+		scope = 2;
+		displayName = "Affected strain - Stage Level 1";
+		descriptionShort = "Admin use only";
+		debug_ItemCategory = 7;
+		hiddenSelections[] = {"zbytek"};
+		hiddenSelectionsTextures[] = {"\dz\gear\medical\data\antidote_co.paa"};
+		rotationFlags = 17;
+		itemSize[] = {1,2};
+		weight = 60;
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 50;
+					healthLevels[] = {{1,{"DZ\gear\medical\data\epipen.rvmat"}},{0.7,{"DZ\gear\medical\data\epipen.rvmat"}},{0.5,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0.3,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0,{"DZ\gear\medical\data\epipen_destruct.rvmat"}}};
+				};
+			};
+		};
+	};
+	class AffectedAdminLevel2: AntiChemInjector
+	{
+		scope = 2;
+		displayName = "Affected strain - Stage Level 2";
+		descriptionShort = "Admin use only";
+		debug_ItemCategory = 7;
+		hiddenSelections[] = {"zbytek"};
+		hiddenSelectionsTextures[] = {"\dz\gear\medical\data\antidote_co.paa"};
+		rotationFlags = 17;
+		itemSize[] = {1,2};
+		weight = 60;
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 50;
+					healthLevels[] = {{1,{"DZ\gear\medical\data\epipen.rvmat"}},{0.7,{"DZ\gear\medical\data\epipen.rvmat"}},{0.5,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0.3,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0,{"DZ\gear\medical\data\epipen_destruct.rvmat"}}};
+				};
+			};
+		};
+	};
+	class AffectedAdminLevel3: AntiChemInjector
+	{
+		scope = 2;
+		displayName = "Affected strain - Stage Level 3";
+		descriptionShort = "Admin use only";
+		debug_ItemCategory = 7;
+		hiddenSelections[] = {"zbytek"};
+		hiddenSelectionsTextures[] = {"\dz\gear\medical\data\antidote_co.paa"};
+		rotationFlags = 17;
+		itemSize[] = {1,2};
+		weight = 60;
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 50;
+					healthLevels[] = {{1,{"DZ\gear\medical\data\epipen.rvmat"}},{0.7,{"DZ\gear\medical\data\epipen.rvmat"}},{0.5,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0.3,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0,{"DZ\gear\medical\data\epipen_destruct.rvmat"}}};
+				};
+			};
+		};
+	};
+	class AffectedAdminLevel4: AntiChemInjector
+	{
+		scope = 2;
+		displayName = "Affected strain - Stage Level 4";
+		descriptionShort = "Admin use only";
+		debug_ItemCategory = 7;
+		hiddenSelections[] = {"zbytek"};
+		hiddenSelectionsTextures[] = {"\dz\gear\medical\data\antidote_co.paa"};
+		rotationFlags = 17;
+		itemSize[] = {1,2};
+		weight = 60;
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 50;
+					healthLevels[] = {{1,{"DZ\gear\medical\data\epipen.rvmat"}},{0.7,{"DZ\gear\medical\data\epipen.rvmat"}},{0.5,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0.3,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0,{"DZ\gear\medical\data\epipen_destruct.rvmat"}}};
+				};
+			};
+		};
+	};
+	class AffectedAdminLevel5: AntiChemInjector
+	{
+		scope = 2;
+		displayName = "Affected strain - Stage Level 5|DO NOT USE|";
+		descriptionShort = "Admin use only";
+		debug_ItemCategory = 7;
+		hiddenSelections[] = {"zbytek"};
+		hiddenSelectionsTextures[] = {"\dz\gear\medical\data\antidote_co.paa"};
+		rotationFlags = 17;
+		itemSize[] = {1,2};
+		weight = 60;
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 50;
+					healthLevels[] = {{1,{"DZ\gear\medical\data\epipen.rvmat"}},{0.7,{"DZ\gear\medical\data\epipen.rvmat"}},{0.5,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0.3,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0,{"DZ\gear\medical\data\epipen_destruct.rvmat"}}};
+				};
+			};
+		};
 	};
 };
