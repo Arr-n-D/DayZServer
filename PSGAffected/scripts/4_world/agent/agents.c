@@ -52,7 +52,7 @@ class AffectedModifier: ModifierBase
 	}
     if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 9902) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 9904)) //death warning 10 minutes 9900
     {
-        layer.SendMessageToClient(player, "I should probably lay down when I get home and rest...(10 minutes warning)");
+        player.SendMessageToClient(player, "I should probably lay down when I get home and rest...(10 minutes warning)");
     }
     if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 9994) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 9996)) //death warning 5 minutes 9990
     {
