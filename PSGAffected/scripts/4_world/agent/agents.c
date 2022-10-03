@@ -1,14 +1,15 @@
 //agent register
+
 modded class PluginTransmissionAgents
 {
     void PluginTransmissionAgents()
     {
-        RegisterAgent(new MutantAgentBase); 
+        RegisterAgent(new AffectedAgentBase); 
         Print("Registered "); 
     }
 };
 //modifier
-class MutantMdfr: ModifierBase
+class AffectedModifier: ModifierBase
 {
 	static const int AGENT_THRESHOLD_ACTIVATE = 2399;
 	
@@ -16,14 +17,14 @@ class MutantMdfr: ModifierBase
 	{
 		m_TrackActivatedTime = true;
 		m_IsPersistent = true;
-		m_ID 	= Modifiers.MDF_MUTANT;
+		m_ID 	= PSGModifiers.MDF_AFFECTED;
 		m_TickIntervalInactive = DEFAULT_TICK_TIME_INACTIVE;
 		m_TickIntervalActive = DEFAULT_TICK_TIME_ACTIVE;
 	}
 	
 	override bool ActivateCondition(PlayerBase player)
 	{
-		if(player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= AGENT_THRESHOLD_ACTIVATE) 
+		if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= AGENT_THRESHOLD_ACTIVATE) 
 		{
 			return true;
 		}
@@ -39,109 +40,113 @@ class MutantMdfr: ModifierBase
 	{
 	    return false;
 	}
+
+  // Assuming 259200 is 72 hours in seconds and 86400 is the tick value we have after 72 hours, we can find the amount of time until we reach a next stage by doing
+  // Tick value * 3 / 60 / 60
+  // To find the tick value we reverse the operation, 60 * 60 / 3 * 12 = 14400, 12 hours = value of 14400
   void MutationMessageQueue(PlayerBase player)
   {
-	if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 9600) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 9602)) //Stage 2 first physical mutation passively regain food and water in the biozone can only eat human meat 9600 = 8 hours passed 
+	if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 9600) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 9602)) //Stage 2 first physical mutation passively regain food and water in the biozone can only eat human meat 9600 = 8 hours passed 
 	{
-        player.SendMessageToClient(player, "You feel something irreversibly change inside of you");
+        player.SendMessageToClient(player, "I don't feel so good... Perhaps I should head home and warn my friends about this?");
 	}
-    if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 9902) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 9904)) //death warning 10 minutes 9900
+    if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 9902) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 9904)) //death warning 10 minutes 9900
     {
-        layer.SendMessageToClient(player, "you have 10 minutes before the transformation takes place get somewhere safe");
+        layer.SendMessageToClient(player, "I should probably lay down when I get home and rest...(10 minutes warning)");
     }
-    if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 9994) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 9996)) //death warning 5 minutes 9990
+    if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 9994) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 9996)) //death warning 5 minutes 9990
     {
-      player.SendMessageToClient(player, "you have 5 minutes before the transformation takes place get somewhere safe");
+      player.SendMessageToClient(player, "I feel like I have a fever, I should lay down.(5 minutes warning");
     }
-    if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 10026) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 10028)) //death warning 60 seconds 10020
+    if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 10026) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 10028)) //death warning 60 seconds 10020
     {
-      player.SendMessageToClient(player, "you have 60 second before the transformation takes place get somewhere safe");
+      player.SendMessageToClient(player, "I feel like I'm going to pass out, I should lay down and be prepared.(60 seconds warning)");
     }
-    if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 10050) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 10052))//kills player 10050
+    if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 10050) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 10052))//kills player 10050
     {
       player.SetHealth(0);
     }
-		if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 86400) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 86402)) //Stage 4 you get increased stats including passive healing reduced fall damage and increased jump height during night increased food loss during the day 86400 = 72hours
+		if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 86400) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 86402)) //Stage 4 you get increased stats including passive healing reduced fall damage and increased jump height during night increased food loss during the day 86400 = 72hours
 		{
       player.SendMessageToClient(player, "You feel something irreversibly change inside of you");
 		}
-    if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 86702) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 86704)) //death warning 10 minutes 9900
+    if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 86702) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 86704)) //death warning 10 minutes 9900
     {
       player.SendMessageToClient(player, "you have 10 minutes before the transformation takes place get somewhere safe");
     }
-    if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 86854) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 86856)) //death warning 5 minutes 9990
+    if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 86854) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 86856)) //death warning 5 minutes 9990
     {
       player.SendMessageToClient(player, "you have 5 minutes before the transformation takes place get somewhere safe");
     }
-    if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 86886) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 86888)) //death warning 60 seconds 10020
+    if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 86886) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 86888)) //death warning 60 seconds 10020
     {
       player.SendMessageToClient(player, "you have 60 second before the transformation takes place get somewhere safe");
     }
-    if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 86890) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 86892))//kills player 10050
+    if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 86890) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 86892))//kills player 10050
     {
       player.SetHealth(0);
     }
   };
   void MutationSymptomQueue(PlayerBase player)
   {
-    if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 2400) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 2402)) //Stage 1 skin begins to decay visible smell and flies follow you are immune to the biozone 2400 = 2 hours agents passed start
+    if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 2400) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 2402)) //Stage 1 skin begins to decay visible smell and flies follow you are immune to the biozone 2400 = 2 hours agents passed start
 		{
-      player.GetSymptomManager().QueueUpSecondarySymptom(SymptomIDs.SYMPTOM_CRUDESERUM);
+      player.GetSymptomManager().QueueUpSecondarySymptom(PSGSymptomIDs.SYMPTOM_CRUDESERUM);
 		}
-		if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 9600) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 9602)) //Stage 2 first physical mutation passively regain food and water in the biozone can only eat human meat 9600 = 8 hours passed 
+		if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 9600) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 9602)) //Stage 2 first physical mutation passively regain food and water in the biozone can only eat human meat 9600 = 8 hours passed 
 		{
-      player.GetSymptomManager().QueueUpSecondarySymptom(SymptomIDs.SYMPTOM_MUTANTFIRST);
-      player.GetSymptomManager().RemoveSecondarySymptom(SymptomIDs.SYMPTOM_CRUDESERUM);
+      player.GetSymptomManager().QueueUpSecondarySymptom(PSGSymptomIDs.SYMPTOM_AFFECTEDFIRST);
+      player.GetSymptomManager().RemoveSecondarySymptom(PSGSymptomIDs.SYMPTOM_CRUDESERUM);
 		}
-		if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 28800) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 28802)) //Stage 3 you gain your second physical mutation you no longer aggro AI and have enchanced vision tbd 28800 = 24hours 
+		if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 28800) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 28802)) //Stage 3 you gain your second physical mutation you no longer aggro AI and have enchanced vision tbd 28800 = 24hours 
 		{
-      player.GetSymptomManager().QueueUpSecondarySymptom(SymptomIDs.SYMPTOM_MUTANTFIRST);
+      player.GetSymptomManager().QueueUpSecondarySymptom(PSGSymptomIDs.SYMPTOM_AFFECTEDFIRST);
 		}
-		if((player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 86400) && (player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 86402)) //Stage 4 you get increased stats including passive healing reduced fall damage and increased jump height during night increased food loss during the day 86400 = 72hours
+		if((player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 86400) && (player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 86402)) //Stage 4 you get increased stats including passive healing reduced fall damage and increased jump height during night increased food loss during the day 86400 = 72hours
 		{
-      player.GetSymptomManager().QueueUpSecondarySymptom(SymptomIDs.SYMPTOM_MUTANTSECOND);
-			player.GetSymptomManager().RemoveSecondarySymptom(SymptomIDs.SYMPTOM_MUTANTFIRST);
+      player.GetSymptomManager().QueueUpSecondarySymptom(PSGSymptomIDs.SYMPTOM_AFFECTEDSECOND);
+			player.GetSymptomManager().RemoveSecondarySymptom(PSGSymptomIDs.SYMPTOM_AFFECTEDFIRST);
 		}
-    if(player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 86893 && player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 115692) //Stage 4 you get increased stats including passive healing reduced fall damage and increased jump height during night increased food loss during the day 86400 = 72hours
+    if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 86893 && player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 115692) //Stage 4 you get increased stats including passive healing reduced fall damage and increased jump height during night increased food loss during the day 86400 = 72hours
 		{
-      player.GetSymptomManager().QueueUpSecondarySymptom(SymptomIDs.SYMPTOM_MUTANTSECOND);
+      player.GetSymptomManager().QueueUpSecondarySymptom(PSGSymptomIDs.SYMPTOM_AFFECTEDSECOND);
 		}
-    if(player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 115693) //Stage 4 you get increased stats including passive healing reduced fall damage and increased jump height during night increased food loss during the day 86400 = 72hours
+    if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 115693) //Stage 4 you get increased stats including passive healing reduced fall damage and increased jump height during night increased food loss during the day 86400 = 72hours
 		{
-      player.GetSymptomManager().QueueUpSecondarySymptom(SymptomIDs.SYMPTOM_MUTANTSECOND);
+      player.GetSymptomManager().QueueUpSecondarySymptom(PSGSymptomIDs.SYMPTOM_AFFECTEDSECOND);
 		}
   };
   void MutationLevelSyncer(PlayerBase player)
   {
-    if(player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 2400 && player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 9599 )
+    if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 2400 && player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 9599 )
     {
       if(player.GetAffectedLevel() != 1)
       {
         player.SetMutantLevel(1);
       }
     }
-    if(player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 9600 && player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 28799 )
+    if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 9600 && player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 28799 )
     {
       if(player.GetAffectedLevel() != 2)
       {
         player.SetMutantLevel(2);
       }
     }
-    if(player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 28800 && player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 86399 )
+    if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 28800 && player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 86399 )
     {
       if(player.GetAffectedLevel() != 3)
       {
         player.SetMutantLevel(3);
       }
     }
-    if(player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 86400 && player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) <= 115692)
+    if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 86400 && player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 115692)
     {
       if(player.GetAffectedLevel() != 4)
       {
         player.SetMutantLevel(4);
       }
     }
-    if(player.GetSingleAgentCount(MutantAgent.MUTANT_AGENT) >= 115693)
+    if(player.GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) >= 115693)
     {
       if(player.GetAffectedLevel() != 5)
       {
@@ -153,7 +158,7 @@ class MutantMdfr: ModifierBase
 	{
     if(GetGame().IsMultiplayer())
     {
-      player.InsertAgent(MutantAgent.MUTANT_AGENT, 1);
+      player.InsertAgent(MutantAgent.AFFECTED_AGENT, 1);
       player.m_ModifiersManager.DeactivateModifier(eModifiers.MDF_BRAIN);
       MutationMessageQueue(player);
       MutationSymptomQueue(player);
@@ -178,13 +183,13 @@ class MutantMdfr: ModifierBase
  
   }
 };
-class BioHazardHealMdfr: ModifierBase
+class BioHazardHealModifier: ModifierBase
 {	
   bool inside_area;
 	override void Init()
 	{
 		m_TrackActivatedTime = true;
-    m_ID 					= Modifiers.MDF_BioHazardHeal;
+    m_ID 					= PSGModifiers.MDF_BioHazardHeal;
 		m_TickIntervalInactive 	= DEFAULT_TICK_TIME_INACTIVE_LONG;
 		m_TickIntervalActive 	= DEFAULT_TICK_TIME_INACTIVE_LONG;
 	}
@@ -217,305 +222,25 @@ class BioHazardHealMdfr: ModifierBase
     player.GetStatEnergy().Add(20);
   }
 };
-class FlameThrowerMdfr: ModifierBase
-{
-	override void Init()
-	{
-		m_ID 	= Modifiers.MDF_FLAMETHROWER;
-		m_TickIntervalInactive 	= DEFAULT_TICK_TIME_INACTIVE;
-		m_TickIntervalActive 	= DEFAULT_TICK_TIME_ACTIVE;
-   
-	}
-  override bool ActivateCondition(PlayerBase player)
-  {
-    return false;
-  }
-  override void OnReconnect(PlayerBase player)
-	{
-		OnDeactivate(player);
-	}
-  override bool DeactivateCondition(PlayerBase player)
-  {
-    if (player.IsRolling() || player.IsSwimming() || !player.IsAlive())
-    {
-      return true;
-    }
-		else if(player.GetHealth("GlobalHealth", "Health") <= 15)
-		{
-			return true;
-		}
-    else if(player.IsQueenAlpha())
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
 
-  }
-  override void OnActivate(PlayerBase player)
-  {
-    player.GetSymptomManager().QueueUpSecondarySymptom(SymptomIDs.SYMPTOM_FLAMETHROWER);
-    player.DecreaseHealth(40);
-		
-  }  	  
-  override void OnDeactivate(PlayerBase player)
-  {
-    player.GetSymptomManager().RemoveSecondarySymptom(SymptomIDs.SYMPTOM_FLAMETHROWER);
-  }
-  override void OnTick(PlayerBase player, float deltaT)
-  {
-    player.DecreaseHealth(20);  
-  }
-
-};
-class DrowningMdfr: ModifierBase
-{
-	override void Init()
-	{
-		m_ID = Modifiers.MDF_DROWNING;
-    m_TrackActivatedTime = true;
-		m_TickIntervalInactive 	= DEFAULT_TICK_TIME_INACTIVE;
-		m_TickIntervalActive 	= DEFAULT_TICK_TIME_ACTIVE; 
-	}
-  bool Exclusion(PlayerBase player)
-  {
-    bool exclusion = true;
-    if(player.IsPirate())
-    {
-      exclusion = false;
-    }
-
-    if(player.IsAlpha())
-    {
-      exclusion = false;
-    }
-
-    if(player.IsQueenAlpha())
-    {
-      exclusion = false;
-    }
-
-    return exclusion;
-  }
-  override bool ActivateCondition(PlayerBase player)
-  {
-    if ((GetGame().GetWaterDepth(player.GetPosition()) > 0.1) && Exclusion(player))
-    {
-      return true;
-    }
-
-    return false;
-  }
-  override void OnReconnect(PlayerBase player)
-	{
-		OnActivate(player);
-	}
-  override bool DeactivateCondition(PlayerBase player)
-  {
-    if (GetGame().GetWaterDepth(player.GetPosition()) <= 1.55)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-  override void OnActivate(PlayerBase player)
-  {
-  }	  
-  override void OnDeactivate(PlayerBase player)
-  {
-    player.SetUnderWater(0);
-  }
-  override void OnTick(PlayerBase player, float deltaT)
-  {
-    float attached_time = GetAttachedTime();
-		ClothingBase bag 		= ClothingBase.Cast(player.GetItemOnSlot("back"));
-		ClothingBase headGear	= ClothingBase.Cast(player.GetItemOnSlot("HeadGear"));
-		ClothingBase mask		= ClothingBase.Cast(player.GetItemOnSlot("Mask"));
-		ClothingBase shirt		= ClothingBase.Cast(player.GetItemOnSlot("body"));
-    if ((headGear && headGear.IsDivingHelmet()) && (bag && bag.IsDivingTank()) && (shirt && shirt.IsDivingSuit()))
-    {
-      
-      if (bag.GetQuantity() <= 60)
-      {
-        player.RequestSoundEventEx(EPlayerSoundEventID.EXHAUSTED_BREATH, false, EPlayerSoundEventParam.HIGHEST_PRIORITY);
-      }
-      if(bag.GetQuantity() <= 5)
-      {
-        player.AddHealth("", "Health", -25);
-      }
-    }
-    else if(bag && bag.IsDivingTank())
-    {
-      if (bag.GetQuantity() <= 60)
-      {
-        player.RequestSoundEventEx(EPlayerSoundEventID.EXHAUSTED_BREATH, false, EPlayerSoundEventParam.HIGHEST_PRIORITY);
-      }
-      if(bag.GetQuantity() <= 5)
-      {
-        player.AddHealth("", "Health", -25);
-      }
-    }
-    else if(player.GetFirstMutation() == 6 || player.GetSecondMutation() == 6)
-    {
-      if (attached_time >= 600)
-      {
-        player.RequestSoundEventEx(EPlayerSoundEventID.EXHAUSTED_BREATH, false, EPlayerSoundEventParam.HIGHEST_PRIORITY);
-      }
-      if(attached_time >= 720)
-      {
-        player.AddHealth("", "Health", -25);
-      }
-    }
-    else if((mask && mask.IsSnorkel()) && GetGame().GetWaterDepth(player.GetPosition()) <= 1.6)
-    {
-      return;
-    }
-    else
-    {
-      if (attached_time >= 60)
-      {
-        player.RequestSoundEventEx(EPlayerSoundEventID.EXHAUSTED_BREATH, false, EPlayerSoundEventParam.HIGHEST_PRIORITY);
-      }
-      if(attached_time >= 120)
-      {
-        player.AddHealth("", "Health", -25);
-      }
-    }
-
-    if((bag && bag.IsDivingTank()) && (player.GetUnderWater() != 2))
-    {
-      player.SetUnderWater(2);
-    }
-    else
-    {
-      player.SetUnderWater(1);
-    }
-  }
-
-};
-modded class BrokenLegsMdfr
-{
-	override void OnDeactivate(PlayerBase player)
-	{
-    player.UpdateBrokenLegs(eBrokenLegs.NO_BROKEN_LEGS);
-		if ( player.IsWearingSplint() )
-		{
-			Splint_Applied splint;
-      if(Class.CastTo(splint, player.GetItemOnSlot("Splint_Right")))
-      {
-        MiscGameplayFunctions.RemoveSplint(player); //Remove splint when leg is healed
-      }
-		}
-		//SetLegHealed(bool broke)
-		player.SetBrokenLegs(eBrokenLegs.NO_BROKEN_LEGS);
-		player.GetNotifiersManager().DeactivateByType(eNotifiers.NTF_FRACTURE);
-  }
-};
-modded class HeatComfortMdfr
-{
-	override void OnTick(PlayerBase player, float deltaT)
-	{
-		float heat_comfort = player.GetStatHeatComfort().Get();
-		float health_loss;
-		float value_normalized;	
-    if(player.GetFirstMutation() == 3 || player.GetSecondMutation() == 3)
-    {
-      float stamina = player.GetStaminaHandler().GetStamina();
-      if( heat_comfort > PlayerConstants.WATER_LOSS_THRESHOLD_HC_PLUS_LOW )
-      {
-        value_normalized = Math.Lerp(PlayerConstants.WATER_LOSS_THRESHOLD_HC_PLUS_LOW, PlayerConstants.WATER_LOSS_THRESHOLD_HC_PLUS_HIGH, heat_comfort);
-        value_normalized = Math.Clamp(value_normalized, 0, 1);
-        float water_loss = deltaT * Math.Lerp(PlayerConstants.WATER_LOSS_HC_PLUS_LOW, PlayerConstants.WATER_LOSS_HC_PLUS_HIGH, value_normalized);
-        player.GetStatWater().Add(-water_loss/2);
-
-        if( heat_comfort > PlayerConstants.WATER_LOSS_THRESHOLD_HC_PLUS_HIGH )
-        {
-          player.GetStatWater().Add(-water_loss * 2);
-          player.GetStaminaHandler().MaxStaminaAdjuster(10);
-        }
-      }
-      if( heat_comfort < PlayerConstants.ENERGY_LOSS_THRESHOLD_HC_MINUS_LOW )
-      {
-        value_normalized = Math.InverseLerp(PlayerConstants.ENERGY_LOSS_THRESHOLD_HC_MINUS_LOW, PlayerConstants.ENERGY_LOSS_THRESHOLD_HC_MINUS_HIGH, heat_comfort);
-        value_normalized = Math.Clamp(value_normalized, 0, 1);
-        float energy_loss = deltaT * Math.Lerp(PlayerConstants.ENERGY_LOSS_HC_MINUS_LOW, PlayerConstants.ENERGY_LOSS_HC_MINUS_HIGH, value_normalized);
-        player.GetStatEnergy().Add(-energy_loss/2);
-
-        if( heat_comfort < PlayerConstants.ENERGY_LOSS_THRESHOLD_HC_MINUS_HIGH )
-        {
-          player.GetStatEnergy().Add(-energy_loss * 2);
-          player.GetStaminaHandler().MaxStaminaAdjuster(10);
-        }
-      }
-    }
-    else
-    {
-      super.OnTick(player,deltaT);
-    }
-	}
-};
-modded class HealthRegenMdfr
-{
-	override void OnTick(PlayerBase player, float deltaT)
-	{	
-    super.OnTick(player,deltaT);
-
-		if (player.IsAlive())
-		{
-      if(player.IsWearingSplint())
-      {
-        Splint_Applied splint;
-        Legcast_Applied cast;
-        if(Class.CastTo(splint, player.GetItemOnSlot("Splint_Right")))
-        {
-          player.AddHealth("RightLeg","Health", 0.03);
-				  player.AddHealth("RightFoot","Health",0.03);
-				  player.AddHealth("LeftLeg","Health", 0.03);
-				  player.AddHealth("LeftFoot","Health", 0.03);
-        }
-        else if(Class.CastTo(cast, player.GetItemOnSlot("Splint_Right")))
-        {
-          player.AddHealth("RightLeg","Health", 0.06);
-				  player.AddHealth("RightFoot","Health",0.06);
-				  player.AddHealth("LeftLeg","Health", 0.06);
-				  player.AddHealth("LeftFoot","Health", 0.06);
-        }
-        else
-        {
-          return;
-        }
-        
-      }
-		}
-	}
-};
 //mdfrregister
 modded class ModifiersManager
 {
     override void Init()
     {
         super.Init();
-        AddModifier(new MutantMdfr);
-        Print("Register MutantMdfr");
-        AddModifier(new BioHazardHealMdfr);
+        AddModifier(new AffectedModifier);
+        Print("Registered AffectedModifier");
+        AddModifier(new BioHazardHealModifier);
         Print("Register BioHazardHealMdfr");
-        AddModifier(new FlameThrowerMdfr);
-        Print("Register FlameThrowerMdfr");
-        AddModifier(new DrowningMdfr);
-        Print("Register DrowningMdfr");
     }
 };
 //agent=====================================================================================================================================================================================================================
-class MutantAgentBase: AgentBase
+class AffectedAgentBase: AgentBase
 {
 	override void Init()
 	{
-		m_Type 					= MutantAgent.MUTANT_AGENT;
+		m_Type 					= AffectedAgent.AFFECTED_AGENT;
 		m_Invasibility 			= 0;
 		m_TransferabilityIn		= 0;
 		m_TransferabilityOut	= 0;
@@ -532,7 +257,7 @@ class MutantCrudeSerum: SymptomBase //changes skin colour biozone entry
     {
         m_SymptomType = SymptomTypes.SECONDARY;
         m_Priority = 50;
-        m_ID = SymptomIDs.SYMPTOM_CRUDESERUM;
+        m_ID = PSGSymptomIDs.SYMPTOM_CRUDESERUM;
         m_DestroyOnAnimFinish = false;
         m_IsPersistent = true;
         m_SyncToClient = true;
@@ -552,7 +277,7 @@ class MutantCrudeSerum: SymptomBase //changes skin colour biozone entry
       player.m_CorpseState = PlayerConstants.CORPSE_STATE_DECAYED;
       player.SetFaceTexture(m_DecayedTexture);
       #ifndef SERVER
-	    MiscGameplayFunctions.MutantChecker();
+	    
       #endif
     }
 
@@ -562,7 +287,7 @@ class MutantCrudeSerum: SymptomBase //changes skin colour biozone entry
       m_DecayedTexture = player.ConfigGetString(m_DecayedTexture);
       player.m_CorpseState = PlayerConstants.CORPSE_STATE_DECAYED;
       player.SetFaceTexture(m_DecayedTexture);
-      MiscGameplayFunctions.MutantChecker();
+      
     }
 };
 class MutantFirst: SymptomBase //
@@ -573,7 +298,7 @@ class MutantFirst: SymptomBase //
     {
         m_SymptomType = SymptomTypes.SECONDARY;
         m_Priority = 50;
-        m_ID = SymptomIDs.SYMPTOM_MUTANTFIRST;
+        m_ID = PSGSymptomIDs.SYMPTOM_AFFECTEDFIRST;
         m_DestroyOnAnimFinish = false;
         m_IsPersistent = true;
         m_SyncToClient = true;
@@ -614,7 +339,7 @@ class MutantFirst: SymptomBase //
           GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_F");
         }
       }   
-      MiscGameplayFunctions.MutantChecker();            	
+                  	
     }
 };
 class MutantSecond: SymptomBase
@@ -623,7 +348,7 @@ class MutantSecond: SymptomBase
     {
       m_SymptomType = SymptomTypes.SECONDARY;
       m_Priority = 50;
-      m_ID = SymptomIDs.SYMPTOM_MUTANTSECOND;
+      m_ID = PSGSymptomIDs.SYMPTOM_AFFECTEDSECOND;
       m_DestroyOnAnimFinish = false;
       m_IsPersistent = true;
       m_SyncToClient = true;
@@ -665,7 +390,6 @@ class MutantSecond: SymptomBase
           GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_F_2");
         }
       } 
-      MiscGameplayFunctions.MutantChecker();    
     }
 };
 
