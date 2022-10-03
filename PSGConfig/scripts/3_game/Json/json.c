@@ -2,6 +2,7 @@ class PSGJsonInfo
 {  
     protected string m_SteamID;
     protected int m_AffectedLevel;
+    protected int m_IsPrime;
 
     void PSGJsonInfo(string id, int affectedLevel, int isPrime)  
     {
