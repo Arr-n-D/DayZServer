@@ -11,15 +11,14 @@ class AffectedSyringe_Pure: AntiChemInjector
 	override void OnApply(PlayerBase player)
 	{
 		int random = Math.RandomIntInclusive(0, 20);
-		if (random >= 15)
+		if (random >= 5)
 		{
 			player.SetAffectedLevel(1);
 			player.InsertAgent(AffectedAgent.AFFECTED_AGENT, 2400);
 		}
 		else
 		{
-			player.AddHealth("", "Health", -80);
-			player.SendMessageToClient(player, "You feel your blood boil");
+			player.SetHealth(0)
 		}
 	}
 };
