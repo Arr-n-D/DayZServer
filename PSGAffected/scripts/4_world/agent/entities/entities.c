@@ -13,7 +13,7 @@ class AffectedSyringe_Pure: AntiChemInjector
 		int random = Math.RandomIntInclusive(0, 20);
 		if (random >= 15)
 		{
-			player.SetMutantLevel(1);
+			player.SetAffectedLevel(1);
 			player.InsertAgent(DUB_MutantAgent.MUTANT_AGENT, 2400);
 		}
 		else
@@ -35,7 +35,7 @@ class AffectedAdminLevel1: AntiChemInjector
 	
 	override void OnApply(PlayerBase player)
 	{
-		player.SetMutantLevel(1);
+		player.SetAffectedLevel(1);
 		player.m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 2400);
 		
 	}
@@ -51,7 +51,7 @@ class AffectedAdminLevel2: AntiChemInjector
 	
 	override void OnApply(PlayerBase player)
 	{
-		player.SetMutantLevel(2);
+		player.SetAffectedLevel(2);
 		player.m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 10053);
 		
 	}
@@ -67,7 +67,7 @@ class AffectedAdminLevel3: AntiChemInjector
 	
 	override void OnApply(PlayerBase player)
 	{
-		player.SetMutantLevel(3);
+		player.SetAffectedLevel(3);
 		player.m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 28800);
 		
 	}
@@ -83,7 +83,7 @@ class AffectedAdminLevel4: AntiChemInjector
 	
 	override void OnApply(PlayerBase player)
 	{
-		player.SetMutantLevel(4);
+		player.SetAffectedLevel(4);
 		player.m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 86893);
 		
 	}
@@ -99,7 +99,7 @@ class AffectedAdminLevel5: AntiChemInjector
 	
 	override void OnApply(PlayerBase player)
 	{
-		player.SetMutantLevel(5);
+		player.SetAffectedLevel(5);
 		player.m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 115693);	
 	}
 };
