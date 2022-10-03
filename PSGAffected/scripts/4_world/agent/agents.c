@@ -151,7 +151,7 @@ class AffectedModifier: ModifierBase
 	{
     if(GetGame().IsMultiplayer())
     {
-      player.InsertAgent(MutantAgent.AFFECTED_AGENT, 1);
+      player.InsertAgent(AffectedAgent.AFFECTED_AGENT, 1);
       player.m_ModifiersManager.DeactivateModifier(eModifiers.MDF_BRAIN);
       MutationMessageQueue(player);
       MutationSymptomQueue(player);
