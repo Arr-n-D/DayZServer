@@ -310,11 +310,11 @@ class AffectedFirst: SymptomBase //
       {
         if(player.IsMale())
         {
-          GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_M");
+          GetGame().GetMenuDefaultCharacterData().SetCharacterType("DUB_SurMutant_M");
         }
         else
         {
-          GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_F");
+          GetGame().GetMenuDefaultCharacterData().SetCharacterType("DUB_SurMutant_F");
         }
       }     
     }
@@ -325,11 +325,11 @@ class AffectedFirst: SymptomBase //
       {
         if(player.IsMale())
         {
-          GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_M");
+          GetGame().GetMenuDefaultCharacterData().SetCharacterType("DUB_SurMutant_M");
         }
         else
         {
-          GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_F");
+          GetGame().GetMenuDefaultCharacterData().SetCharacterType("DUB_SurMutant_F");
         }
       }   
                   	
@@ -360,11 +360,11 @@ class AffectedSecond: SymptomBase
       {
         if(player.IsMale())
         {
-          GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_M_2");
+          GetGame().GetMenuDefaultCharacterData().SetCharacterType("DUB_SurMutant_M_2");
         }
         else
         {
-          GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_F_2");
+          GetGame().GetMenuDefaultCharacterData().SetCharacterType("DUB_SurMutant_F_2");
         }
         Print("char reset symptom");
       }     
@@ -376,11 +376,11 @@ class AffectedSecond: SymptomBase
       {
         if(player.IsMale())
         {
-          GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_M_2");
+          GetGame().GetMenuDefaultCharacterData().SetCharacterType("DUB_SurMutant_M_2");
         }
         else
         {
-          GetGame().GetMenuDefaultCharacterData().SetCharacterType("SurMutant_F_2");
+          GetGame().GetMenuDefaultCharacterData().SetCharacterType("DUB_SurMutant_F_2");
         }
       } 
     }
