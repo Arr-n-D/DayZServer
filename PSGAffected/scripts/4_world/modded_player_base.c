@@ -3,7 +3,7 @@ modded class PlayerBase
 	bool isPrime;
     bool isAffected;
     bool isZombieClose;
-
+	protected bool m_IsInBioZone = false;
 	int affectedLevel;
 
 	string SteamID;
@@ -249,10 +249,10 @@ modded class PlayerBase
 		}
 	};
 
-    void SetBioZoneStatus(bool isInZone)
-  {
-    m_IsInBioZone = isInZone;
-  }
+void SetBioZoneStatus(bool isInZone)
+{
+	m_IsInBioZone = isInZone;
+}
 
   bool IsInBioZone()
   {
