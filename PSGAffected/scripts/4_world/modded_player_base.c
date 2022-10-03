@@ -261,10 +261,10 @@ void SetBioZoneStatus(bool isInZone)
 
   bool IgnoreContaminatedArea()
   {
-    return IsPlayerMutant)
+    return IsPlayerAffected()
   }
 
-  bool IsPlayerMutant()
+  bool IsPlayerAffected()
   {
     int slot_id = InventorySlots.GetSlotIdFromString("Head");
     Head_Default tempHead = Head_Default.Cast(GetInventory().FindPlaceholderForSlot( slot_id ));
