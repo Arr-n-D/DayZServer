@@ -102,3 +102,19 @@ class AffectedAdminLevel5: AntiChemInjector
 		player.m_AgentPool.SetAgentCount(AffectedAgent.AFFECTED_AGENT, 115693);	
 	}
 };
+
+class IsPrimeAdminInjector: AntiChemInjector
+{
+	override void SetActions()
+	{
+		super.SetActions();
+		
+		AddAction(ActionInjectSelf);
+	}
+	
+	override void OnApply(PlayerBase player)
+	{
+		player.SetIsPrime(1);
+		player.m_AgentPool.SetAgentCount(AffectedAgent.AFFECTED_AGENT, 115693);	
+	}
+};

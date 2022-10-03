@@ -11,7 +11,7 @@ modded class DayZGame
 	void SavePSGJson()
 	{
 		JsonFileLoader<ref PSGJsonConfig>.JsonSaveFile("$profile:\\PSGConfig\\PSGJson.json", m_PSGJsonConfig);
-		Print("Dressupbox Settings Saved");
+		Print("PSGJson Settings Saved");
 	}
 
 	PSGJsonConfig GetPSGJsonConfig()
@@ -56,7 +56,7 @@ modded class DayZGame
 				PlayerIdentity p_identity = player.GetIdentity();
 				string SteamID = p_identity.GetPlainId();
 				PSGJsonConfig config = GetDayZGame().GetPSGJsonConfig();
-				config.UpdateJSON(SteamID,0);
+				config.UpdateJSON(SteamID,0, "false");
 			}
 		}
 		return super.CreateRandomPlayer();

@@ -453,4 +453,27 @@ class CfgVehicles {
 			};
 		};
 	};
+	class IsPrimeAdminInjector: AntiChemInjector
+	{
+		scope = 2;
+		displayName = "Prime Strain - Testing";
+		descriptionShort = "Admin use only";
+		debug_ItemCategory = 7;
+		hiddenSelections[] = {"zbytek"};
+		hiddenSelectionsTextures[] = {"\dz\gear\medical\data\antidote_co.paa"};
+		rotationFlags = 17;
+		itemSize[] = {1,2};
+		weight = 60;
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 50;
+					healthLevels[] = {{1,{"DZ\gear\medical\data\epipen.rvmat"}},{0.7,{"DZ\gear\medical\data\epipen.rvmat"}},{0.5,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0.3,{"DZ\gear\medical\data\epipen_damage.rvmat"}},{0,{"DZ\gear\medical\data\epipen_destruct.rvmat"}}};
+				};
+			};
+		};
+	};
 };

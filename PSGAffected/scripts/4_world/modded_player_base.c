@@ -1,10 +1,9 @@
 modded class PlayerBase
 {
-	bool isPrime;
-    bool isAffected;
     bool isZombieClose;
 	protected bool m_IsInBioZone = false;
 	int affectedLevel;
+	int isPrime;
 
 	string SteamID;
 	
@@ -12,10 +11,10 @@ modded class PlayerBase
 	{
 		super.Init();
 		RegisterNetSyncVariableInt("affectedLevel",0,5);
-		isPrime = false;
-		isAffected = false;
+		RegisterNetSyncVariableInt("isPrime", 0, 1);
 		isZombieClose = false;
 		affectedLevel = 0;
+		isPrime = 0;
 		
 		
 	};
@@ -29,7 +28,6 @@ modded class PlayerBase
 		
 		SEffectManager.DestroyEffect(m_FliesEff);
 		StopSoundSet(m_SoundFliesEffect);
-		isPrime = false;
 	}
 	override void OnPlayerLoaded()
 	{
@@ -54,7 +52,7 @@ modded class PlayerBase
 		if(GetGame().IsDedicatedServer())
 		{	
 			PSGJsonConfig config = GetDayZGame().GetPSGJsonConfig();
-			config.UpdateJSON(GetSteamID(),GetAffectedLevel());
+			config.UpdateJSON(GetSteamID(),GetAffectedLevel(), IsPrime());
 		}
 	}
 	void PlayerJSONSave()
@@ -62,7 +60,7 @@ modded class PlayerBase
 		if(GetGame().IsDedicatedServer())
 		{
 			PSGJsonConfig config = GetDayZGame().GetPSGJsonConfig();
-			config.NewJSON(GetSteamID(),GetAffectedLevel());
+			config.NewJSON(GetSteamID(),GetAffectedLevel(), IsPrime());
 		}
 	}
 	void JSONSynchDirty()
@@ -71,6 +69,7 @@ modded class PlayerBase
 		{
 			PSGJsonConfig config = GetDayZGame().GetPSGJsonConfig();
 			affectedLevel = config.GetJSONAffectedLevel(GetSteamID());
+			isPrime = config.GetJSONIsPrime(GetSteamID());
 			SetSynchDirty();
 		}
 		
@@ -145,11 +144,11 @@ modded class PlayerBase
 	}
 
 //Alphas
-	bool IsPrime()
+	int IsPrime()
 	{
 		return isPrime;
 	};
-	void SetIsPrime(bool prime)
+	void SetIsPrime(int isPrime)
 	{
 		isPrime = prime;
 		SetSynchDirty();
@@ -161,7 +160,7 @@ modded class PlayerBase
 
 		if(!GetGame().IsDedicatedServer())
 		{
-			if(GetAffectedLevel() >= 3)
+			if(GetAffectedLevel() >= 3 || IsPrime())
 			{
 				ItemBase eyewear = GetItemOnSlot("Eyewear");
 				if (eyewear)
@@ -261,7 +260,7 @@ void SetBioZoneStatus(bool isInZone)
 
   bool IgnoreContaminatedArea()
   {
-    return IsPlayerAffected()
+    return IsPlayerAffected() || IsPrime()
   }
 
   bool IsPlayerAffected()
@@ -284,6 +283,16 @@ void SetBioZoneStatus(bool isInZone)
     return false;
   }
 
+  	float GetJumpHeight() {
+		float height = 2.6; // default
+
+		if(IsPrime())
+		{
+			height = 15;
+		}
+		return height;
+	};
+
   void SendMessageToClient( Object reciever, string message ) //sends given string to client, don't use if not nescessary
 	{
 		PlayerBase man;
@@ -292,5 +301,27 @@ void SetBioZoneStatus(bool isInZone)
 		{
 			GetGame().RPCSingleParam(man, ERPCs.RPC_USER_ACTION_MESSAGE, m_MessageParam, true, man.GetIdentity());
 		}
+	}
+};
+
+modded class DayZPlayerImplementJumpClimb
+{
+	const vector CAPTURE_VELOCITY = { 10, 10, 10 };
+	override void Jump()
+	{
+		m_bIsJumpInProgress = true;
+		m_Player.SetFallYDiff(m_Player.GetPosition()[1]);
+
+		m_Player.OnJumpStart();
+
+    PlayerBase pb = PlayerBase.Cast(m_Player);
+    float jumpHeight = 2.6;
+    if (pb)
+    {
+      jumpHeight = pb.GetJumpHeight();
+    }
+    
+    m_Player.StartCommand_Fall(jumpHeight);
+		m_Player.StopHandEvent();
 	}
 };
