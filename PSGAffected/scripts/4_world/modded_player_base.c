@@ -100,41 +100,41 @@ modded class PlayerBase
 	// 		int mutelevel = GetAffectedLevel();
 	// 		if(mutelevel == 1)
 	// 		{
-	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 2400)
+	// 			if(GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 2400)
 	// 			{
-	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 2400);
+	// 				m_AgentPool.SetAgentCount(AffectedAgent.AFFECTED_AGENT, 2400);
 	// 			}
 	// 		}
 
 	// 		if(mutelevel == 2)
 	// 		{
-	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 10053)
+	// 			if(GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 10053)
 	// 			{
-	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 10053);
+	// 				m_AgentPool.SetAgentCount(AffectedAgent.AFFECTED_AGENT, 10053);
 	// 			}
 	// 		}
 
 	// 		if(mutelevel == 3)
 	// 		{
-	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 28800)
+	// 			if(GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 28800)
 	// 			{
-	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 28800);
+	// 				m_AgentPool.SetAgentCount(AffectedAgent.AFFECTED_AGENT, 28800);
 	// 			}
 	// 		}
 
 	// 		if(mutelevel == 4)
 	// 		{
-	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 86893)
+	// 			if(GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 86893)
 	// 			{
-	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 86893);
+	// 				m_AgentPool.SetAgentCount(AffectedAgent.AFFECTED_AGENT, 86893);
 	// 			}
 	// 		}
 
 	// 		if(mutelevel == 5)
 	// 		{
-	// 			if(GetSingleAgentCount(DUB_MutantAgent.MUTANT_AGENT) <= 115692)
+	// 			if(GetSingleAgentCount(AffectedAgent.AFFECTED_AGENT) <= 115692)
 	// 			{
-	// 				m_AgentPool.SetAgentCount(DUB_MutantAgent.MUTANT_AGENT, 115693);
+	// 				m_AgentPool.SetAgentCount(AffectedAgent.AFFECTED_AGENT, 115693);
 	// 			}
 	// 		}
 	// 	}
