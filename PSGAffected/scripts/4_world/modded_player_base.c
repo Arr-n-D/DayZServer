@@ -150,7 +150,7 @@ modded class PlayerBase
 	};
 	void SetIsPrime(int isPrime)
 	{
-		isPrime = prime;
+		isPrime = isPrime;
 		SetSynchDirty();
 	};
 
