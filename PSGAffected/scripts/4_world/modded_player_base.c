@@ -91,6 +91,20 @@ modded class PlayerBase
 		affectedLevel = level;
 		SetSynchDirty();
 	};
+
+	int IsPrime()
+	{
+		return isPrime;
+	};
+	void SetIsPrime(int isP)
+	{
+		Print("Printing if player is set as prime")
+		Print(isP);
+		isPrime = isP;
+		Print("Printing if player is set as prime")
+		Print(isPrime);
+		SetSynchDirty();
+	};
 	
 	// void AgentUpdater()
 	// {
@@ -144,15 +158,7 @@ modded class PlayerBase
 	}
 
 //Alphas
-	int IsPrime()
-	{
-		return isPrime;
-	};
-	void SetIsPrime(int isPrime)
-	{
-		isPrime = isPrime;
-		SetSynchDirty();
-	};
+
 
 	override void OnScheduledTick(float deltaTime)
 	{
