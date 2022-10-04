@@ -228,14 +228,14 @@ modded class PlayerBase
 	{
 		super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
 
-		// PlayerBase player;
-		// if(Class.CastTo(player, source)) {
-		// 	if(player.IsPrime()) {
-		// 		SetHealth("", "Shock", 0);
-		// 		GiveShock(100);
-		// 		GetModifiersManager().ActivateModifier(eModifiers.MDF_UNCONSCIOUSNESS);
-		// 	}
-		// }
+		PlayerBase player;
+		if(Class.CastTo(player, source)) {
+			if(player.IsPrime()) {
+				SetHealth("", "Shock", 0);
+				// GiveShock(100);
+				GetModifiersManager().ActivateModifier(eModifiers.MDF_UNCONSCIOUSNESS);
+			}
+		}
 
 	};
 	
