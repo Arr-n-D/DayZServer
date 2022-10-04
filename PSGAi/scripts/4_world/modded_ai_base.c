@@ -1,6 +1,7 @@
 //zombie base
 modded class ZombieBase
 {
+
 	protected ref Timer 	Movetimer;
 	override void EOnInit(IEntity other, int extra)
 	{
@@ -11,6 +12,11 @@ modded class ZombieBase
 	{
 		return false;
 	}
+	
+ 	override bool ResistContaminatedEffect() {
+		return true;
+	}
+
 	bool CannotRunInDayLight()
 	{
 		return true;

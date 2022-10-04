@@ -233,8 +233,8 @@ modded class PlayerBase
 			case DT_CLOSE_COMBAT:
 			{
 				if(source.IsPlayer()) { // fists
-					PlayerBase player = PlayerBase.Cast(source);
-					if (source.IsPrime()) {
+					PlayerBase m_Source = PlayerBase.Cast(source);
+					if (m_Source.IsPrime()) {
 						SetHealth("", "Shock", 0);
 						GetModifiersManager().ActivateModifier(eModifiers.MDF_UNCONSCIOUSNESS);
 					}
