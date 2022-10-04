@@ -98,11 +98,8 @@ modded class PlayerBase
 	};
 	void SetIsPrime(int isP)
 	{
-		Print("Printing if player is set as prime")
 		Print(isP);
 		isPrime = isP;
-		Print("Printing if player is set as prime")
-		Print(isPrime);
 		SetSynchDirty();
 	};
 	
@@ -156,9 +153,6 @@ modded class PlayerBase
 	{
 		return isZombieClose;
 	}
-
-//Alphas
-
 
 	override void OnScheduledTick(float deltaTime)
 	{
@@ -234,11 +228,13 @@ modded class PlayerBase
 	{
 		super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
 
-		if(IsPrime())
-		{
-			GiveShock(100);
+		PlayerBase player;
+		if(Class.CastTo(player, source)) {
+			if(source.IsPrime()) {
+				SetHealth("", "Shock", 0);
+				GetModifiersManager().ActivateModifier(eModifiers.MDF_UNCONSCIOUSNESS);
+			}
 		}
-
 
 	};
 	
