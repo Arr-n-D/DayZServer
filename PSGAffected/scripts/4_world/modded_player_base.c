@@ -228,15 +228,19 @@ modded class PlayerBase
 	{
 		super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
 
-		PlayerBase player;
-		if(Class.CastTo(player, source)) {
-			if(player.IsPrime()) {
-				SetHealth("", "Shock", 0);
-				// GiveShock(100);
-				GetModifiersManager().ActivateModifier(eModifiers.MDF_UNCONSCIOUSNESS);
+		switch (damageType)
+		{
+			case DT_CLOSE_COMBAT:
+			{
+				if(source.IsPlayer()) { // fists
+					PlayerBase player = PlayerBase.Cast(source);
+					if (source.IsPrime()) {
+						SetHealth("", "Shock", 0);
+						GetModifiersManager().ActivateModifier(eModifiers.MDF_UNCONSCIOUSNESS);
+					}
+				}
 			}
 		}
-
 	};
 	
 	override void SetDecayEffects(int effect = -1)
