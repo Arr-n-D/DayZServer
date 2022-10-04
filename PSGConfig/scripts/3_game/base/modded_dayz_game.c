@@ -56,7 +56,7 @@ modded class DayZGame
 				PlayerIdentity p_identity = player.GetIdentity();
 				string SteamID = p_identity.GetPlainId();
 				PSGJsonConfig config = GetDayZGame().GetPSGJsonConfig();
-				config.UpdateJSON(SteamID,0, "false");
+				config.UpdateJSON(SteamID,0, 0);
 			}
 		}
 		return super.CreateRandomPlayer();
