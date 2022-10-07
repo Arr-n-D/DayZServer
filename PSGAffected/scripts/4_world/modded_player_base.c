@@ -183,32 +183,33 @@ modded class PlayerBase
 			} else {
 				PPEffects.SetEVValuePP(1.0);
 			}
+
+			if (HasCassiusEye() && GetMouseState(MouseState.MIDDLE) && !posWasSet) {
+
+				vector pos_player = GetPosition();
+				
+				vector rayStart = GetGame().GetCurrentCameraPosition();
+				vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
+				vector hitPos;
+				vector hitNormal;
+				int hitComponentIndex;		
+				DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, this);
+					
+				float distance = vector.Distance( pos_player, hitPos );
+				
+				if ( distance < 150 )
+				{
+					SetPosition( hitPos );
+					posWasSet = true;
+				}
+				else
+				{
+					SendMessageToClient(this, "I don't have the energy to reach that distance.");
+				}				
+			} 
 		}
 
-		if (HasCassiusEye() && GetMouseState(MouseState.MIDDLE) && !posWasSet) {
-
-			vector pos_player = GetPosition();
-			
-			vector rayStart = GetGame().GetCurrentCameraPosition();
-			vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
-			vector hitPos;
-			vector hitNormal;
-			int hitComponentIndex;		
-			DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, this);
-				
-			float distance = vector.Distance( pos_player, hitPos );
-			
-			if ( distance < 150 )
-			{
-				SetPosition( hitPos );
-				posWasSet = true;v
-			}
-			else
-			{
-				SendMessageToClient(this, "I don't have the energy to reach that distance.");
-			}				
-
-		} 
+		
 	};
 
 	bool HasCassiusEye() {
