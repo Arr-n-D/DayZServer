@@ -178,6 +178,14 @@ modded class PlayerBase
 			}
 		}
 	};
+
+	bool HasCassiusEye() {
+		return GetItemOnSlot("Eyewear").GetType() == "CassiusEye";
+	}
+
+	bool HasCaspianHelmet () {
+		return GetItemOnSlot("Headgear").GetType() == "PCGNML_Space_Helmet_Black";
+	}
 	
 	override bool CanBeTargetedByAI(EntityAI ai)
 	{
