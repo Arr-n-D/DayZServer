@@ -48,9 +48,10 @@ modded class PlayerBase
 	}
 
 	bool HasCassiusEye() {
-		
 		ItemBase eyewear = GetItemOnSlot("Eyewear");
+		Print(eyewear);
 		if (eyewear && eyewear.GetType() == "CassiusEye") {
+			Print("Has Cassius Eye");
 			return true;
 		}
 		return false 
