@@ -15,8 +15,6 @@ modded class PlayerBase
 		isZombieClose = false;
 		affectedLevel = 0;
 		isPrime = 0;
-		
-		
 	};
 
 	void ~PlayerBase()
@@ -28,8 +26,7 @@ modded class PlayerBase
 		}
 		
 		SEffectManager.DestroyEffect(m_FliesEff);
-		StopS
-		oundSet(m_SoundFliesEffect);
+		StopSoundSet(m_SoundFliesEffect);
 	}
 
 	override void OnPlayerLoaded()
