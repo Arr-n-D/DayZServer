@@ -18,6 +18,7 @@ modded class PlayerBase
 		
 		
 	};
+
 	void ~PlayerBase()
 	{
 		if ( GetGame() && ( !GetGame().IsDedicatedServer() ) )
@@ -27,8 +28,10 @@ modded class PlayerBase
 		}
 		
 		SEffectManager.DestroyEffect(m_FliesEff);
-		StopSoundSet(m_SoundFliesEffect);
+		StopS
+		oundSet(m_SoundFliesEffect);
 	}
+
 	override void OnPlayerLoaded()
 	{
 		super.OnPlayerLoaded();
@@ -37,6 +40,7 @@ modded class PlayerBase
 		JSONSynchDirty();
 		// AgentUpdater();
 	}
+
 	override void OnConnect()//serverside only
 	{
 		super.OnConnect();
@@ -55,6 +59,7 @@ modded class PlayerBase
 			config.UpdateJSON(GetSteamID(),GetAffectedLevel(), IsPrime());
 		}
 	}
+
 	void PlayerJSONSave()
 	{
 		if(GetGame().IsDedicatedServer())
@@ -63,6 +68,7 @@ modded class PlayerBase
 			config.NewJSON(GetSteamID(),GetAffectedLevel(), IsPrime());
 		}
 	}
+
 	void JSONSynchDirty()
 	{
 		if(GetGame().IsDedicatedServer())
@@ -86,6 +92,7 @@ modded class PlayerBase
 	{
 		return affectedLevel;
 	};
+
 	void SetAffectedLevel(int level)
 	{
 		affectedLevel = level;
@@ -96,6 +103,7 @@ modded class PlayerBase
 	{
 		return isPrime;
 	};
+
 	void SetIsPrime(int isP)
 	{
 		isPrime = isP;
@@ -172,23 +180,22 @@ modded class PlayerBase
 				}   
 			}
 
-			if(GetAffectedLevel() >= 5 && GetGame().GetWorld().IsNight())
+			if( ( GetAffectedLevel() >= 5) && GetGame().GetWorld().IsNight() )
 			{
 				PPEffects.SetEVValuePP(5.5);
 			}
 		}
 
-		if (HasCassiusEye() && GetMouseState(MouseState.MIDDLE) {
+		if (HasCassiusEye() && GetMouseState(MouseState.MIDDLE)) {
 
-			PlayerBase player = PlayerBase.Cast( GetGame().GetPlayer() );
-			vector pos_player = player.GetPosition();
+			vector pos_player = GetPosition();
 			
 			vector rayStart = GetGame().GetCurrentCameraPosition();
 			vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
 			vector hitPos;
 			vector hitNormal;
 			int hitComponentIndex;		
-			DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, player);
+			DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, this);
 				
 			float distance = vector.Distance( pos_player, hitPos );
 			
@@ -198,7 +205,7 @@ modded class PlayerBase
 			}
 			else
 			{
-				SendMessageToClient(player, "I don't have the energy to reach that distance.");
+				SendMessageToClient(this, "I don't have the energy to reach that distance.");
 			}				
 
 		} 
@@ -292,10 +299,10 @@ modded class PlayerBase
 		}
 	};
 
-void SetBioZoneStatus(bool isInZone)
-{
-	m_IsInBioZone = isInZone;
-}
+  void SetBioZoneStatus(bool isInZone)
+  {
+		m_IsInBioZone = isInZone;
+  }
 
   bool IsInBioZone()
   {
