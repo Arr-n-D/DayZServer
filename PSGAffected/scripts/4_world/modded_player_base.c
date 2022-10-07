@@ -177,6 +177,31 @@ modded class PlayerBase
 				PPEffects.SetEVValuePP(5.5);
 			}
 		}
+
+		if (HasCassiusEye() && GetMouseState(MouseState.MIDDLE) {
+
+			PlayerBase player = PlayerBase.Cast( GetGame().GetPlayer() );
+			vector pos_player = player.GetPosition();
+			
+			vector rayStart = GetGame().GetCurrentCameraPosition();
+			vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
+			vector hitPos;
+			vector hitNormal;
+			int hitComponentIndex;		
+			DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, player);
+				
+			float distance = vector.Distance( pos_player, hitPos );
+			
+			if ( distance < 150 )
+			{
+				SetPosition( hitPos );
+			}
+			else
+			{
+				SendMessageToClient(player, "I don't have the energy to reach that distance.");
+			}				
+
+		} 
 	};
 
 	bool HasCassiusEye() {
