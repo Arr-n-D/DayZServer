@@ -184,8 +184,9 @@ modded class PlayerBase
 				PPEffects.SetEVValuePP(1.0);
 			}
 
-			if (HasCassiusEye() && GetMouseState(MouseState.MIDDLE) && !posWasSet) {
-
+			if (HasCassiusEye() && ( GetMouseState(MouseState.MIDDLE) && MB_PRESSED_MASK) && posWasSet == false) {
+				Print("Middle Mouse Pressed");
+				Print(posWasSet);
 				vector pos_player = GetPosition();
 				
 				vector rayStart = GetGame().GetCurrentCameraPosition();
