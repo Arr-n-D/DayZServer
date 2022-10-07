@@ -48,7 +48,12 @@ modded class PlayerBase
 	}
 
 	bool HasCassiusEye() {
-		return GetItemOnSlot("Eyewear").GetType() == "CassiusEye";
+		
+		ItemBase eyewear = GetItemOnSlot("Eyewear");
+		if (eyewear && eyewear.GetType() == "CassiusEye") {
+			return true;
+		}
+		return false 
 	}
 
 	bool HasCaspianHelmet () {
