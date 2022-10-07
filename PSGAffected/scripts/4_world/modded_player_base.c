@@ -161,7 +161,7 @@ modded class PlayerBase
 	override void OnScheduledTick(float deltaTime)
 	{
 		super.OnScheduledTick(deltaTime);
-
+		bool posWasSet = false;
 		if(!GetGame().IsDedicatedServer())
 		{
 			if(GetAffectedLevel() >= 3 && GetAffectedLevel() < 5)
@@ -180,10 +180,12 @@ modded class PlayerBase
 			if( ( GetAffectedLevel() >= 5) && GetGame().GetWorld().IsNight() )
 			{
 				PPEffects.SetEVValuePP(5.5);
+			} else {
+				PPEffects.SetEVValuePP(1.0);
 			}
 		}
 
-		if (HasCassiusEye() && GetMouseState(MouseState.MIDDLE)) {
+		if (HasCassiusEye() && GetMouseState(MouseState.MIDDLE) && !posWasSet) {
 
 			vector pos_player = GetPosition();
 			
@@ -199,6 +201,7 @@ modded class PlayerBase
 			if ( distance < 150 )
 			{
 				SetPosition( hitPos );
+				posWasSet = true;v
 			}
 			else
 			{
