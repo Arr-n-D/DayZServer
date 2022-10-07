@@ -98,7 +98,6 @@ modded class PlayerBase
 	};
 	void SetIsPrime(int isP)
 	{
-		Print(isP);
 		isPrime = isP;
 		SetSynchDirty();
 	};
@@ -160,7 +159,7 @@ modded class PlayerBase
 
 		if(!GetGame().IsDedicatedServer())
 		{
-			if(GetAffectedLevel() >= 3 || IsPrime())
+			if(GetAffectedLevel() >= 3 && GetAffectedLevel() < 5)
 			{
 				ItemBase eyewear = GetItemOnSlot("Eyewear");
 				if (eyewear)
@@ -171,6 +170,11 @@ modded class PlayerBase
 				{
 					PPEffects.SetEVValuePP(5.5);
 				}   
+			}
+
+			if(GetAffectedLevel() >= 5 && GetGame().GetWorld().IsNight())
+			{
+				PPEffects.SetEVValuePP(5.5);
 			}
 		}
 	};
