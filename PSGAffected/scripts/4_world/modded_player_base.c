@@ -47,6 +47,14 @@ modded class PlayerBase
 		}
 	}
 
+	bool HasCassiusEye() {
+		return GetItemOnSlot("Eyewear").GetType() == "CassiusEye";
+	}
+
+	bool HasCaspianHelmet () {
+		return GetItemOnSlot("Headgear").GetType() == "PCGNML_Space_Helmet_Black";
+	}
+
 //JSON
 	void PlayerJSONUpdate()
 	{
@@ -185,9 +193,8 @@ modded class PlayerBase
 			}
 
 			if (HasCassiusEye() && ( GetMouseState(MouseState.MIDDLE) && MB_PRESSED_MASK) && posWasSet == false) {
-				Print("Middle Mouse Pressed");
-				Print(posWasSet);
-				vector pos_player = GetPosition();
+				
+				vector pos_player = player.GetPosition();
 				
 				vector rayStart = GetGame().GetCurrentCameraPosition();
 				vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
@@ -195,7 +202,7 @@ modded class PlayerBase
 				vector hitNormal;
 				int hitComponentIndex;		
 				DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, this);
-					
+				
 				float distance = vector.Distance( pos_player, hitPos );
 				
 				if ( distance < 150 )
@@ -212,14 +219,6 @@ modded class PlayerBase
 
 		
 	};
-
-	bool HasCassiusEye() {
-		return GetItemOnSlot("Eyewear").GetType() == "CassiusEye";
-	}
-
-	bool HasCaspianHelmet () {
-		return GetItemOnSlot("Headgear").GetType() == "PCGNML_Space_Helmet_Black";
-	}
 	
 	override bool CanBeTargetedByAI(EntityAI ai)
 	{
