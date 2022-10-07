@@ -194,7 +194,7 @@ modded class PlayerBase
 
 			if (HasCassiusEye() && ( GetMouseState(MouseState.MIDDLE) && MB_PRESSED_MASK) && posWasSet == false) {
 				
-				vector pos_player = player.GetPosition();
+				vector pos_player = GetPosition();
 				
 				vector rayStart = GetGame().GetCurrentCameraPosition();
 				vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
