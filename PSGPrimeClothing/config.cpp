@@ -5,7 +5,7 @@ class CfgPatches
 		units[] = {};
 		weapons[] = {};
 		requiredVersion = 0.1;
-		requiredAddons[] = {"DZ_Data"};
+		requiredAddons[] = {"DZ_Scripts"};
 	};
 };
 class CfgMods
@@ -16,7 +16,7 @@ class CfgMods
 		author = "R&D";
 		name = "PSGPrimeClothing";
 		dir = "PSGPrimeClothing";
-	
+		dependencies[] = {"World"};
 		class defs
 		{
 			class worldScriptModule
