@@ -49,7 +49,6 @@ modded class PlayerBase
 
 	bool HasCassiusEye() {
 		ItemBase eyewear = GetItemOnSlot("Eyewear");
-		Print(eyewear);
 		if (eyewear && eyewear.GetType() == "CassiusEye") {
 			Print("Has Cassius Eye");
 			return true;
@@ -172,12 +171,13 @@ modded class PlayerBase
 		return isZombieClose;
 	}
 
+	vector lastPos;
 	override void OnScheduledTick(float deltaTime)
 	{
 		super.OnScheduledTick(deltaTime);
-		bool posWasSet = false;
 		if(!GetGame().IsDedicatedServer())
 		{
+			vector pos_player = GetPosition();
 			if(GetAffectedLevel() >= 3 && GetAffectedLevel() < 5)
 			{
 				ItemBase eyewear = GetItemOnSlot("Eyewear");
@@ -198,9 +198,7 @@ modded class PlayerBase
 				PPEffects.SetEVValuePP(1.0);
 			}
 
-			if (HasCassiusEye() && ( GetMouseState(MouseState.MIDDLE) && MB_PRESSED_MASK) && posWasSet == false) {
-				
-				vector pos_player = GetPosition();
+			if (HasCassiusEye() && ( GetMouseState(MouseState.MIDDLE) && MB_PRESSED_MASK) && lastPos != pos_player)) {
 				
 				vector rayStart = GetGame().GetCurrentCameraPosition();
 				vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
@@ -214,7 +212,7 @@ modded class PlayerBase
 				if ( distance < 150 )
 				{
 					SetPosition( hitPos );
-					posWasSet = true;
+					lastPos = hitPos;
 				}
 				else
 				{
