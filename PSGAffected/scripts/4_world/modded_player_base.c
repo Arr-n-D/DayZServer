@@ -198,7 +198,7 @@ modded class PlayerBase
 				PPEffects.SetEVValuePP(1.0);
 			}
 
-			if (HasCassiusEye() && ( GetMouseState(MouseState.MIDDLE) && MB_PRESSED_MASK) && lastPos != pos_player)) {
+			if (HasCassiusEye() && ( GetMouseState(MouseState.MIDDLE) && MB_PRESSED_MASK) && lastPos != pos_player) {
 				
 				vector rayStart = GetGame().GetCurrentCameraPosition();
 				vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
