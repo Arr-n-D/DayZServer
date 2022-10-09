@@ -28,3 +28,21 @@ class CfgMods
 		};
 	};
 };
+
+class CfgSoundShaders {
+
+	class Cassius_Teleport_SoundShader {
+		samples[] = {{"PSGAffected\sounds\cassius_teleport",1}};
+		volume = 1;
+		range = 1000;
+	};
+	
+};
+
+class CfgSoundSets {
+
+	class Cassius_Teleport_SoundSet {
+		soundShaders[] = {"Cassius_Teleport_SoundShader"};
+	};
+
+};

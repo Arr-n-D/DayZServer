@@ -50,7 +50,6 @@ modded class PlayerBase
 	bool HasCassiusEye() {
 		ItemBase eyewear = GetItemOnSlot("Eyewear");
 		if (eyewear && eyewear.GetType() == "CassiusEye") {
-			Print("Has Cassius Eye");
 			return true;
 		}
 		return false 
@@ -170,59 +169,60 @@ modded class PlayerBase
 	{
 		return isZombieClose;
 	}
-
-	vector lastPos;
+	
 	override void OnScheduledTick(float deltaTime)
 	{
 		super.OnScheduledTick(deltaTime);
-		if(!GetGame().IsDedicatedServer())
-		{
+		if(!GetGame().IsDedicatedServer())	{
 			vector pos_player = GetPosition();
-			if(GetAffectedLevel() >= 3 && GetAffectedLevel() < 5)
-			{
+			if(GetAffectedLevel() >= 3 && GetAffectedLevel() < 5) {
 				ItemBase eyewear = GetItemOnSlot("Eyewear");
-				if (eyewear)
-				{
+				if (eyewear) {
 					PPEffects.SetEVValuePP(2.1); 
-				}
-				else
-				{
+				} else {
 					PPEffects.SetEVValuePP(5.5);
 				}   
 			}
 
-			if( ( GetAffectedLevel() >= 5) && GetGame().GetWorld().IsNight() )
-			{
+			if( ( GetAffectedLevel() >= 5) && GetGame().GetWorld().IsNight() ) {
 				PPEffects.SetEVValuePP(5.5);
 			} else {
 				PPEffects.SetEVValuePP(1.0);
 			}
 
-			if (HasCassiusEye() && ( GetMouseState(MouseState.MIDDLE) && MB_PRESSED_MASK) && lastPos != pos_player) {
-				
-				vector rayStart = GetGame().GetCurrentCameraPosition();
-				vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
-				vector hitPos;
-				vector hitNormal;
-				int hitComponentIndex;		
-				DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, this);
-				
-				float distance = vector.Distance( pos_player, hitPos );
-				
-				if ( distance < 150 )
-				{
-					SetPosition( hitPos );
-					lastPos = hitPos;
-				}
-				else
-				{
-					SendMessageToClient(this, "I don't have the energy to reach that distance.");
-				}				
-			} 
-		}
+			if (HasCassiusEye()) { 
+				if ( KeyState(KeyCode.KC_LCONTROL) == 1 && GetMouseState(MouseState.LEFT) & MB_PRESSED_MASK) {
+					vector rayStart = GetGame().GetCurrentCameraPosition();
+					vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 1000;		
+					vector hitPos;
+					vector hitNormal;
+					int hitComponentIndex;		
+					DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, this);
+					
+					float distance = vector.Distance( pos_player, hitPos );
+					
+					if ( distance < 150 ) {
+						GetRPCManager().SendRPC("PSGRpc", "TeleportPlayer", new Param1<vector>(hitPos));
+						ClearKey(KeyCode.KC_LCONTROL);	
+					} else {
+						GetRPCManager().SendRPC("PSGRpc", "FailTeleportPlayer", new Param1<string>("I don't have the energy to reach that distance")); 
+					}
 
+				}
+			}
+		}
 		
+
+		// if (GetGame().IsDedicatedServer()) {
+		// 	if (shouldUpdatePos) {
+		// 		Print("Should Update");
+		// 		SetPosition(pos);
+		// 	} else {
+		// 		SendMessageToClient(this, message);
+		// 	}
+		// }
 	};
+
 	
 	override bool CanBeTargetedByAI(EntityAI ai)
 	{
